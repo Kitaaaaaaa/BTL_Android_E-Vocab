@@ -1,4 +1,4 @@
-package com.example.btl;
+package com.example.btl_1;
 
 import org.junit.Test;
 
