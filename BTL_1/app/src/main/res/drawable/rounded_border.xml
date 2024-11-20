@@ -3,15 +3,16 @@
     android:shape="rectangle">
 
     <!-- Màu nền cho khung -->
-    <solid android:color="#FFFFFF" />
+<!--    <solid android:color="@color/DarkBlue" />-->
+    <solid android:color="@color/DarkBlue"/>
 
     <!-- Bo góc cho hình chữ nhật -->
     <corners android:radius="10dp" />
 
     <!-- Viền của khung -->
     <stroke
-        android:width="2dp"
-        android:color="#000000" />
+        android:width="0dp"
+        android:color="@color/black" />
 
     <!-- Độ đổ bóng bên trong -->
     <padding

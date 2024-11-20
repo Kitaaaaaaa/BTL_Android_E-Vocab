@@ -5,106 +5,134 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ListVocabActivity"
-    android:orientation="vertical">
+    android:layout_marginStart="5dp"
+    android:layout_marginTop="5dp"
+    android:layout_marginEnd="5dp"
+    android:layout_marginBottom="5dp"
+    android:background="@color/LightGray"
+    android:orientation="vertical"
+    tools:context=".ListVocabActivity">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        >
+        android:orientation="vertical">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
             <ImageButton
-                android:id="@+id/bt_menu_list_vocab"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:id="@+id/btnMenu_lstVocab"
+                android:layout_width="50dp"
+                android:layout_height="50sp"
+                android:background="#00FFFFFF"
                 android:src="@drawable/baseline_menu"
                 tools:ignore="SpeakableTextPresentCheck" />
+
             <ImageView
-                android:layout_width="200dp"
+                android:layout_width="150dp"
                 android:layout_height="50dp"
-                android:layout_marginStart="40dp"
-                android:src="@drawable/e_vocab_logo"
-                android:scaleType="centerCrop"/>
+                android:layout_marginLeft="65dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/e_vocab_logo" />
         </LinearLayout>
+
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginTop="20dp">
+            android:orientation="horizontal">
 
             <ImageButton
-                android:id="@+id/back_list_vocab"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:id="@+id/btnBack_lstVocab"
+                android:layout_width="50dp"
+                android:layout_height="60dp"
+                android:background="#00FFFFFF"
                 android:src="@drawable/baseline_arrow_back"
                 tools:ignore="SpeakableTextPresentCheck" />
+
             <TextView
-                android:layout_width="200dp"
-                android:layout_height="50dp"
-                android:layout_marginStart="40dp"
+                android:id="@+id/tvFolderName_lstVocab"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="80dp"
                 android:gravity="center"
-                android:textSize="30sp"
-                android:id="@+id/tv_folder_name"/>
+                android:inputType="textMultiLine"
+                android:text="Folder Name  jhufừ powe oue ew "
+                android:textColor="@color/black"
+                android:textSize="22sp"
+                android:textStyle="bold" />
         </LinearLayout>
+
         <TextView
             android:layout_width="290dp"
             android:layout_height="150dp"
             android:layout_marginLeft="50dp"
             android:layout_marginTop="10dp"
+            android:background="@drawable/rectangle"
             android:gravity="center"
-            android:textSize="30sp"
-            android:background="@drawable/rectangle"/>
+            android:textSize="30sp" />
 
         <Button
+            android:id="@+id/btnMix"
             android:layout_width="100dp"
             android:layout_height="48dp"
             android:layout_marginLeft="140dp"
             android:layout_marginTop="10dp"
             android:background="@drawable/rounded_border"
             android:text="Mix"
-            android:textColor="@color/black" />
+            android:textColor="@color/white" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:layout_marginTop="10dp"
             android:orientation="horizontal">
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_marginStart="10dp"
-                android:text="Number of vocabulary:"
+                android:layout_marginLeft="10dp"
                 android:gravity="center_vertical"
-                android:textSize="18sp"/>
+                android:text="Number of vocabulary:"
+                android:textColor="@color/black"
+                android:textSize="18sp" />
+
             <TextView
-                android:layout_width="wrap_content"
+                android:id="@+id/tv_number_vocab"
+                android:layout_width="30dp"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="3dp"
                 android:gravity="center_vertical"
-                android:textSize="18sp"
                 android:text="0"
-                android:id="@+id/tv_number_vocab"/>
-            <Button
-                android:layout_width="50dp"
-                android:layout_height="match_parent"
-                android:text="+"
-                android:id="@+id/bt_add_vocab"
-                android:layout_marginStart="130dp"
-                android:backgroundTint="@color/white"
                 android:textColor="@color/black"
-                android:textSize="18sp"/>
+                android:textSize="18sp" />
+
+            <Space
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1" />
+
+            <ImageButton
+                android:id="@+id/btnAddVocab"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:background="#00FFFFFF"
+                android:contentDescription="Add"
+                app:srcCompat="@drawable/add_vocab" />
+
         </LinearLayout>
+
         <ListView
+            android:id="@+id/lvVocab"
             android:layout_width="match_parent"
-            android:layout_height="270dp"
-            android:layout_marginTop="10dp"
-            android:padding="10dp"
-            android:visibility="gone"/>
+            android:layout_height="343dp"
+            android:visibility="visible" />
 
     </LinearLayout>
-    <include layout="@layout/add_vocab"/>
-    <include layout="@layout/edit_vocab"/>
+
+    <include layout="@layout/add_vocab" />
+
+    <include layout="@layout/edit_vocab" />
 </LinearLayout>
