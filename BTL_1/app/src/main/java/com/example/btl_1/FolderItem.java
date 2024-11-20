@@ -21,6 +21,10 @@ public class FolderItem implements Serializable {
 
     public FolderItem() {
     }
+    public FolderItem(String name) {
+        this.name = name;
+    }
+
 
     public int getId() {
         return id;
