@@ -88,7 +88,42 @@ public class DBManager {
         return count;
     }
 
+//Thuc hien voi folder
+    public long insFolder(FolderItem fditem){
+        ContentValues contentValues= new ContentValues();
+        contentValues.put(dbHelper.NameFD, fditem.getName());
 
+        return db.insert(dbHelper.TblFolder, null, contentValues);
+    }
+
+    public int updFolder(FolderItem fditem, int id) {
+        if (db == null || !db.isOpen()) {
+            db = dbHelper.getWritableDatabase(); // Đảm bảo db được mở
+        }
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(dbHelper.NameFD, fditem.getName());
+        return db.update(dbHelper.TblFolder, contentValues, dbHelper.FolderID + "=?", new String[]{String.valueOf(id)});
+    }
+
+    public int delFolder(int id){
+        return db.delete(dbHelper.TblFolder, dbHelper.FolderID + "=?", new String[]{String.valueOf(id)});
+    }
+
+
+    public ArrayList<FolderItem> getAllFolder(){
+        ArrayList<FolderItem> kq = new ArrayList<>();
+        Cursor cursor = db.rawQuery("SELECT * FROM " + dbHelper.TblFolder,null);
+        if (cursor != null && cursor.moveToFirst()) {
+            do {
+                int id = cursor.getInt(0);
+                String name = cursor.getString(1);
+                kq.add(new FolderItem( id, name));
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+
+        return kq;
+    }
 
 }
 

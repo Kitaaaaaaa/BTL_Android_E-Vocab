@@ -12,8 +12,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.viewpager2.widget.ViewPager2;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class ListVocabActivity extends AppCompatActivity {
     Button btnMix;
@@ -23,6 +25,10 @@ public class ListVocabActivity extends AppCompatActivity {
     ArrayList<MyVocab> myListVocab;
     VocabAdapter myAdapter;
     DBManager dbManager;
+
+    ViewPager2 vpFlashCard;
+    List<FlashCard> myListFlashCard;
+    FlashCardAdapter flashCardAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +49,17 @@ public class ListVocabActivity extends AppCompatActivity {
         dbManager.open();
         myListVocab.addAll(dbManager.getAllVocab());
         myAdapter.notifyDataSetChanged();
+
+        //chuyen tu myListVocab thanh myListFlashCard
+        myListFlashCard = new ArrayList<>();
+        for (MyVocab vocab : myListVocab) {
+            myListFlashCard.add(new FlashCard(vocab.getTerminology(), vocab.getType(), vocab.getDefinition()));
+        }
+
+        //set adapter cho Viewpage 2
+        flashCardAdapter = new FlashCardAdapter(myListFlashCard);
+        vpFlashCard.setAdapter(flashCardAdapter);
+
 
         //Dem so luong vocab
         int vocabCount=dbManager.getNumberOfVocab();
