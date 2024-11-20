@@ -21,7 +21,7 @@ public class FolderActivity extends AppCompatActivity {
     ListView lvFolder;
     ArrayList<FolderItem> listFolder = new ArrayList<>();
     FDAdapter fdAdapter;
-    DBManageger dbManageger;
+    DBManager dbManageger;
 
     LinearLayout menuLayout;
     ImageButton menuButton;
@@ -35,7 +35,7 @@ public class FolderActivity extends AppCompatActivity {
 
 
         lvFolder = findViewById(R.id.lvFolder);
-        dbManageger = new DBManageger(this);
+        dbManageger = new DBManager(this);
         dbManageger.open();
 
         listFolder = dbManageger.getAllFolder();
@@ -49,7 +49,7 @@ public class FolderActivity extends AppCompatActivity {
                 FolderItem selectedFolder = listFolder.get(position);
 
                 // Truyền đối tượng FolderItem thay vì chỉ id
-                Intent intent = new Intent(FolderActivity.this, VocabActivity.class);
+                Intent intent = new Intent(FolderActivity.this, ListVocabActivity.class);
                 intent.putExtra("folder", selectedFolder); // Truyền FolderItem vào Intent
                 startActivity(intent);
             }

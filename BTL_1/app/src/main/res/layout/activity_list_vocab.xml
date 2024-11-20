@@ -66,14 +66,13 @@
                 android:textStyle="bold" />
         </LinearLayout>
 
-        <TextView
-            android:layout_width="290dp"
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/vpFlashCard"
+            android:layout_width="320dp"
             android:layout_height="150dp"
-            android:layout_marginLeft="50dp"
+            android:layout_gravity="center"
             android:layout_marginTop="10dp"
-            android:background="@drawable/rectangle"
-            android:gravity="center"
-            android:textSize="30sp" />
+            android:background="@color/LightGray" />
 
         <Button
             android:id="@+id/btnMix"
