@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">E-vocab</string>
+    <string-array name="vocab_type">
+        <item>n</item>
+        <item>v</item>
+        <item>adj</item>
+        <item>adv</item>
+    </string-array>
 </resources>

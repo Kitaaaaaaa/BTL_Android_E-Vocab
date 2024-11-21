@@ -6,7 +6,7 @@
     android:padding="20dp"
     android:layout_marginTop="388dp"
     android:id="@+id/lo_add_vocab"
-    android:visibility="visible">
+    android:visibility="gone">
     <LinearLayout
         android:padding="20dp"
         android:layout_width="match_parent"
@@ -19,7 +19,7 @@
             android:layout_height="50dp"
             android:orientation="horizontal">
             <EditText
-                android:id="@+id/tv_add_Terminology"
+                android:id="@+id/et_add_Terminology"
                 android:layout_width="200dp"
                 android:layout_height="50dp"
                 android:textSize="20sp"
@@ -34,13 +34,13 @@
                 android:autofillHints="Type"/>
         </LinearLayout>
         <EditText
-            android:id="@+id/tv_add_Definity"
+            android:id="@+id/et_add_Definity"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:textSize="20sp"
             android:hint="Definity"/>
         <EditText
-            android:id="@+id/tv_add_example"
+            android:id="@+id/et_add_example"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:textSize="20sp"
@@ -51,12 +51,13 @@
             android:layout_height="50dp"
             android:orientation="horizontal">
             <Button
-                android:id="@+id/bt_add_add"
+                android:id="@+id/bt_add_save"
                 android:layout_width="130dp"
                 android:layout_height="match_parent"
                 android:background="@drawable/rounded_border"
                 android:textColor="@color/black"
-                android:text="Save"/>
+                android:text="Save"
+                android:layout_marginLeft="10dp"/>
             <Button
                 android:id="@+id/bt_add_Cancel"
                 android:layout_width="130dp"
