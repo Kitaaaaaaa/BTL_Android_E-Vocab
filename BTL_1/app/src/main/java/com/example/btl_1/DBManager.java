@@ -30,29 +30,28 @@ public class DBManager {
 
 //Thuc hien voi vocab
     //Them moi vocab
-    public long insVocab(MyVocab vocab){
+    public long insVocab(MyVocab vocab, int idFolder){
         ContentValues values = new ContentValues();
         values.put(dbHelper.vocab_terminology, vocab.getTerminology());
         values.put(dbHelper.vocab_type, vocab.getType());
         values.put(dbHelper.vocab_definition, vocab.getDefinition());
         values.put(dbHelper.vocab_example, vocab.getExample());
-        values.put(dbHelper.vocab_example, vocab.getExample());
+        values.put(dbHelper.vocab_id_folder,idFolder);
         return db.insert(dbHelper.vocab_tblName, null, values);
     }
 
     //Cap nhat vocab
-    public int updayeVocab(MyVocab vocab, int id){
+    public int updateVocab(MyVocab vocab, int id){
         ContentValues values = new ContentValues();
         values.put(dbHelper.vocab_terminology, vocab.getTerminology());
         values.put(dbHelper.vocab_type, vocab.getType());
         values.put(dbHelper.vocab_definition, vocab.getDefinition());
-        values.put(dbHelper.vocab_example, vocab.getExample());
         values.put(dbHelper.vocab_example, vocab.getExample());
         return db.update(dbHelper.vocab_tblName, values, dbHelper.vocab_id +" = "+id, null);
     }
 
     //Xoa vocab
-    public int deledeVocab(int id){
+    public int deleteVocab(int id){
         return db.delete(dbHelper.vocab_tblName, dbHelper.vocab_id + " = "+id, null);
     }
 
@@ -123,6 +122,34 @@ public class DBManager {
         cursor.close();
 
         return kq;
+    }
+    public ArrayList<MyVocab> getVocabByFolderId(int folderId) {
+        ArrayList<MyVocab> vocabList = new ArrayList<>();
+
+        // Truy vấn lấy vocab theo idFolder
+        String query = "SELECT * FROM " + dbHelper.vocab_tblName +
+                " WHERE " + dbHelper.vocab_id_folder + " = ?";
+
+        Cursor cursor = db.rawQuery(query, new String[]{String.valueOf(folderId)});
+
+        if (cursor != null && cursor.moveToFirst()) {
+            do {
+                int id = cursor.getInt(cursor.getColumnIndexOrThrow(dbHelper.vocab_id));
+                String terminology = cursor.getString(cursor.getColumnIndexOrThrow(dbHelper.vocab_terminology));
+                String type = cursor.getString(cursor.getColumnIndexOrThrow(dbHelper.vocab_type));
+                String definition = cursor.getString(cursor.getColumnIndexOrThrow(dbHelper.vocab_definition));
+                String example = cursor.getString(cursor.getColumnIndexOrThrow(dbHelper.vocab_example));
+
+                // Tạo đối tượng MyVocab và thêm vào danh sách
+                vocabList.add(new MyVocab(id, terminology, type, definition, example));
+            } while (cursor.moveToNext());
+        }
+
+        if (cursor != null) {
+            cursor.close();
+        }
+
+        return vocabList;
     }
 
 }
