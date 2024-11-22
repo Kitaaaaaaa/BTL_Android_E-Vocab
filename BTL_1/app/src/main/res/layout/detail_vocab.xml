@@ -3,14 +3,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="20dp"
-    android:layout_marginTop="388dp"
-    android:id="@+id/lo_detail"
-    android:visibility="gone">
+    android:padding="15dp"
+    android:layout_marginTop="388dp">
     <LinearLayout
         android:padding="20dp"
         android:layout_width="match_parent"
-        android:layout_height="300dp"
+        android:layout_height="310dp"
         android:orientation="vertical"
         android:background="@drawable/rectangle"
         tools:ignore="MissingConstraints">
@@ -19,7 +17,7 @@
             android:id="@+id/bt_detail_Cancel"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:layout_marginLeft="295dp"
+            android:layout_marginLeft="275dp"
             android:backgroundTint="@color/white"
             android:text="X"
             android:textColor="@color/black"
@@ -77,7 +75,7 @@
                 android:layout_width="130dp"
                 android:layout_height="match_parent"
                 android:background="@drawable/rounded_border"
-                android:layout_marginLeft="50dp"
+                android:layout_marginLeft="40dp"
                 android:textColor="@color/black"
                 android:text="Delete"/>
         </LinearLayout>
