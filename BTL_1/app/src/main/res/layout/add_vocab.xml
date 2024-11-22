@@ -3,10 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="20dp"
-    android:layout_marginTop="388dp"
-    android:id="@+id/lo_add_vocab"
-    android:visibility="gone">
+    android:padding="15dp"
+    android:layout_marginTop="388dp">
     <LinearLayout
         android:padding="20dp"
         android:layout_width="match_parent"
@@ -63,7 +61,7 @@
                 android:layout_width="130dp"
                 android:layout_height="match_parent"
                 android:background="@drawable/rounded_border"
-                android:layout_marginLeft="50dp"
+                android:layout_marginLeft="40dp"
                 android:textColor="@color/black"
                 android:text="Cancel"/>
         </LinearLayout>
