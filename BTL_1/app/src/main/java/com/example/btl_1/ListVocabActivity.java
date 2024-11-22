@@ -39,7 +39,7 @@ public class ListVocabActivity extends AppCompatActivity {
     ViewPager2 vpFlashCard;
     List<FlashCard> myListFlashCard;
     FlashCardAdapter flashCardAdapter;
-    ConstraintLayout layout_add_vocab, layout_edit_vocab, layout_detail_vocab;
+    View layout_add_vocab, layout_edit_vocab, layout_detail_vocab;
 
     EditText etTerminology, etDefinity, etEx;
     Spinner spType;
@@ -76,24 +76,19 @@ public class ListVocabActivity extends AppCompatActivity {
         myAdapter.notifyDataSetChanged();
 
         //kiem tra myListVocab rong hay khong
-        if(myListVocab.isEmpty())
-        {
-            tvNo_Vocab.setVisibility(View.VISIBLE);
-            vpFlashCard.setVisibility(View.GONE);
+        if (myListVocab.isEmpty()) {
+            MyVocab defaultVocab = new MyVocab("hello", "n", "a greeting", "Hello, how are you?");
+            dbManager.insVocab(defaultVocab, folderItem.getId());
+            myListVocab.add(defaultVocab);
         }
-        else
-        {
-            tvNo_Vocab.setVisibility(View.GONE);
-            vpFlashCard.setVisibility(View.VISIBLE);
-            //chuyen tu myListVocab thanh myListFlashCard
-            myListFlashCard = new ArrayList<>();
-            for (MyVocab vocab : myListVocab) {
-                myListFlashCard.add(new FlashCard(vocab.getTerminology(), vocab.getType(), vocab.getDefinition()));
-            }
-
-            flashCardAdapter = new FlashCardAdapter(myListFlashCard);
-            vpFlashCard.setAdapter(flashCardAdapter);
+        myAdapter.notifyDataSetChanged();
+        myListFlashCard = new ArrayList<>();
+        for (MyVocab vocab : myListVocab) {
+            myListFlashCard.add(new FlashCard(vocab.getTerminology(), vocab.getType(), vocab.getDefinition()));
         }
+        flashCardAdapter = new FlashCardAdapter(myListFlashCard);
+        vpFlashCard = findViewById(R.id.vpFlashCard);
+        vpFlashCard.setAdapter(flashCardAdapter);
 
         //Dem so luong vocab
         int vocabCount = myListVocab.size();
@@ -103,6 +98,8 @@ public class ListVocabActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 lvVocab.setVisibility(View.GONE);
+                layout_detail_vocab.setVisibility(View.GONE);
+                layout_edit_vocab.setVisibility(View.GONE);
                 layout_add_vocab.setVisibility(View.VISIBLE);
                 getView_add();
                 onClickBT_add();
@@ -172,7 +169,7 @@ public class ListVocabActivity extends AppCompatActivity {
         tv_edit_Definity = findViewById(R.id.tv_detail_Definity);
         tv_edit_type = findViewById(R.id.tv_detail_type);
         tv_edit_ex = findViewById(R.id.tv_detail_example);
-        bt_detail_cancel = findViewById(R.id.bt_edit_Cancel);
+        bt_detail_cancel = findViewById(R.id.bt_detail_Cancel);
         bt_detail_edit = findViewById(R.id.bt_detail_edit);
         bt_detail_del = findViewById(R.id.bt_detail_Delete);
     }
@@ -186,8 +183,6 @@ public class ListVocabActivity extends AppCompatActivity {
                 String type = spType.getSelectedItem().toString();
                 MyVocab myVocab = new MyVocab(Terminology, type, Definity, ex);
                 long result = dbManager.insVocab(myVocab, folderItem.getId());
-
-
                 if(result > 0)
                 {
                     Toast.makeText(ListVocabActivity.this, "Thêm dữ liệu thành công!", Toast.LENGTH_SHORT).show();
@@ -284,7 +279,7 @@ public class ListVocabActivity extends AppCompatActivity {
                     etEx.setText("");
                     spType.setSelection(0);
                     layout_edit_vocab.setVisibility(View.GONE);
-                    lvVocab.setVisibility(View.VISIBLE);
+                    layout_detail_vocab.setVisibility(View.VISIBLE);
                 }
                 else
                 {
@@ -300,8 +295,8 @@ public class ListVocabActivity extends AppCompatActivity {
                 etDefinity.setText("");
                 etEx.setText("");
                 spType.setSelection(0);
-                layout_add_vocab.setVisibility(View.GONE);
-                lvVocab.setVisibility(View.VISIBLE);
+                layout_edit_vocab.setVisibility(View.GONE);
+                layout_detail_vocab.setVisibility(View.VISIBLE);
             }
         });
     }
