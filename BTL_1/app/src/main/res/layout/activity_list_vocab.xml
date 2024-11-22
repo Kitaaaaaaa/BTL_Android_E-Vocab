@@ -1,14 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginStart="5dp"
-    android:layout_marginTop="5dp"
-    android:layout_marginEnd="5dp"
-    android:layout_marginBottom="5dp"
+    android:padding="5dp"
     android:background="@color/LightGray"
     android:orientation="vertical"
     tools:context=".ListVocabActivity">
@@ -60,7 +57,7 @@
                 android:layout_marginRight="80dp"
                 android:gravity="center"
                 android:inputType="textMultiLine"
-                android:text="Folder Name  jhufừ powe oue ew "
+                android:text="Folder Name  "
                 android:textColor="@color/black"
                 android:textSize="22sp"
                 android:textStyle="bold" />
@@ -72,7 +69,16 @@
             android:layout_height="150dp"
             android:layout_gravity="center"
             android:layout_marginTop="10dp"
-            android:background="@color/LightGray" />
+            android:background="@color/LightGray"
+            android:visibility="visible"/>
+        <TextView
+            android:id="@+id/tv_NoVocab"
+            android:layout_width="320dp"
+            android:layout_height="150dp"
+            android:text="No vocab"
+            android:textSize="20sp"
+            android:gravity="center"
+            android:visibility="gone" />
 
         <Button
             android:id="@+id/btnMix"
@@ -130,8 +136,17 @@
             android:visibility="visible" />
 
     </LinearLayout>
+    <include
+        android:id="@+id/lo_add"
+        layout="@layout/add_vocab"
+        android:visibility="gone"/>
+    <include
+        android:id="@+id/lo_detail"
+        layout="@layout/detail_vocab"
+        android:visibility="gone"/>
+    <include
+        android:id="@+id/lo_edit"
+        layout="@layout/edit_vocab"
+        android:visibility="gone"/>
 
-    <include layout="@layout/add_vocab" />
-
-    <include layout="@layout/edit_vocab" />
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
