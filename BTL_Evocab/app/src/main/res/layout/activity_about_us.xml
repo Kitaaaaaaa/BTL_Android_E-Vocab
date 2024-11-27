@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".AboutUsActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        tools:layout_editor_absoluteX="10dp">
+
+        <LinearLayout
+            android:id="@+id/header_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageButton
+                android:id="@+id/btn_aboutUs_menu"
+                android:layout_width="50dp"
+                android:layout_height="50sp"
+                android:background="#00FFFFFF"
+                android:src="@drawable/baseline_menu"
+                tools:ignore="SpeakableTextPresentCheck" />
+
+            <ImageView
+                android:layout_width="150dp"
+                android:layout_height="50dp"
+                android:layout_marginLeft="75dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/e_vocab_logo" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginRight="10dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_intro"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:justificationMode="inter_word"
+                android:text="E-Vocab is an English vocabulary notebook app designed to help you learn and retain vocabulary effectively. With a simple, friendly, and easy-to-use interface, E-Vocab is the ideal companion on your journey to mastering English."
+                android:textColor="@color/black"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/tv_vision_header"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"
+                android:text="Our Vision"
+                android:textColor="@color/DarkBlue"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tv_vision_content"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:justificationMode="inter_word"
+                android:text="E-Vocab is not just a learning tool but a platform for you to develop language skills, expand your vocabulary, and boost your confidence in English communication. We believe that learning vocabulary should be an exciting and inspiring journey."
+                android:textColor="@color/black"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/tv_offer_header"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"
+                android:text="What We Offer"
+                android:textColor="@color/DarkBlue"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tv_offer_content"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:justificationMode="inter_word"
+                android:text="- Easy Vocabulary Management: Quickly create, edit, and delete vocabulary entries. Organize your vocabulary into separate themes for better learning.\n\n- Effective Learning: Use flashcards to review vocabulary. Smart learning methods help you remember words for a longer time."
+                android:textColor="@color/black"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/tv_contact_header"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"
+                android:text="Contact Us:"
+                android:textColor="@color/DarkBlue"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tv_contact_content"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"
+                android:layout_marginBottom="16dp"
+                android:text="Phone: 0123456789\nEmail: evocab@gmail.com"
+                android:textColor="@color/black"
+                android:textSize="18sp" />
+        </LinearLayout>
+    </LinearLayout>
+    <include layout="@layout/menu_layout"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
