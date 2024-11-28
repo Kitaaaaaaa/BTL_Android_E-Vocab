@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+
+    <!-- Màu nền cho khung -->
+<!--    <solid android:color="@color/DarkBlue" />-->
+    <solid android:color="@color/DarkBlue"/>
+
+    <!-- Bo góc cho hình chữ nhật -->
+    <corners android:radius="10dp" />
+
+    <!-- Viền của khung -->
+    <stroke
+        android:width="0dp"
+        android:color="@color/black" />
+
+    <!-- Độ đổ bóng bên trong -->
+    <padding
+        android:left="4dp"
+        android:top="4dp"
+        android:right="4dp"
+        android:bottom="4dp" />
+</shape>
