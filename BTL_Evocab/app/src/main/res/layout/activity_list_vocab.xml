@@ -134,12 +134,7 @@
             android:divider="@color/LightGray"/>
 
     </LinearLayout>
-
-    <include layout="@layout/add_vocab" />
-
-    <include layout="@layout/detail_vocab" />
-
-    <include layout="@layout/edit_vocab" />
-
+    <include layout="@layout/detail_vocab"
+        android:visibility="gone"/>
     <include layout="@layout/menu_layout" />
 </androidx.constraintlayout.widget.ConstraintLayout>
