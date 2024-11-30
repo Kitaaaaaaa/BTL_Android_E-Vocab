@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.speech.tts.TextToSpeech;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,6 +31,7 @@ import androidx.viewpager2.widget.ViewPager2;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Locale;
 
 public class ListVocabActivity extends AppCompatActivity {
     //Chua xu ly menu, flashcard
@@ -47,6 +50,8 @@ public class ListVocabActivity extends AppCompatActivity {
     EditText edtEditTerm, edtEditDef, edtEditEx;
     Button btn_detail_edit, btn_detail_delete, btn_edit_save_vocab, btn_edit_cancel_vocab,
             btn_add_add_vocab, btn_add_Cancel_vocab;
+    ImageView btn_speak;
+    TextToSpeech textToSpeech;
     ImageView img_detail_close;
     Spinner sp_Type;
 
@@ -166,6 +171,24 @@ public class ListVocabActivity extends AppCompatActivity {
         btn_detail_edit = findViewById(R.id.btn_detail_edit);
         btn_detail_delete = findViewById(R.id.btn_detail_delete);
         img_detail_close = findViewById(R.id.img_detail_close);
+        btn_speak = findViewById(R.id.btn_speak);
+        textToSpeech = new TextToSpeech(this, new TextToSpeech.OnInitListener() {
+            @Override
+            public void onInit(int i) {
+                if (i == TextToSpeech.SUCCESS) {
+                    // Đặt ngôn ngữ mặc định (ví dụ: Tiếng Anh)
+                    int result = textToSpeech.setLanguage(Locale.ENGLISH);
+
+                    if (result == TextToSpeech.LANG_MISSING_DATA || result == TextToSpeech.LANG_NOT_SUPPORTED) {
+                        Log.e("TTS", "Ngôn ngữ không hỗ trợ");
+                    } else {
+                        btn_speak.setEnabled(true);
+                    }
+                } else {
+                    Log.e("TTS", "Khởi tạo thất bại");
+                }
+            }
+        });
     }
 
     public void getView_edit(View dialogView) {
@@ -231,6 +254,13 @@ public class ListVocabActivity extends AppCompatActivity {
             public void onClick(View v) {
                 vDetailVocab.setVisibility(View.GONE);
                 lvVocab.setVisibility(View.VISIBLE);
+            }
+        });
+        btn_speak.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String text = tvTerm.getText().toString().trim();
+                textToSpeech.speak(text, TextToSpeech.QUEUE_FLUSH, null, null);
             }
         });
         btn_detail_edit.setOnClickListener(new View.OnClickListener() {
@@ -421,6 +451,14 @@ public class ListVocabActivity extends AppCompatActivity {
             }
         });
         dialog.show();
+    }
+
+    protected void onDestroy() {
+        if (textToSpeech != null) {
+            textToSpeech.stop();
+            textToSpeech.shutdown();
+        }
+        super.onDestroy();
     }
 }
 
