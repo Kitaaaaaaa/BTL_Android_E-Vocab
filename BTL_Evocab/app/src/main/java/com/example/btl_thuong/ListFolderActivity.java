@@ -5,6 +5,8 @@ import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,9 +31,12 @@ import java.util.ArrayList;
 
 public class ListFolderActivity extends AppCompatActivity {
     ListView lvFolder;
-    ImageButton btnMenu, btnAdd;
+    ImageButton btnMenu, btnAdd, btnSearch;
+    EditText edtSearch;
 
     ArrayList<FolderItem> myListFolder = new ArrayList<>();
+    ArrayList<FolderItem> searchedFolders = new ArrayList<>();
+
     FolderAdapter fdAdapter;
     DBManager dbManager;
     MenuManager menuManager;
@@ -60,7 +65,7 @@ public class ListFolderActivity extends AppCompatActivity {
         lvFolder.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                FolderItem select = myListFolder.get(position);
+                FolderItem select = searchedFolders.get(position);
 
                 Intent i = new Intent(ListFolderActivity.this, ListVocabActivity.class);
                 i.putExtra("folder", select);
@@ -76,34 +81,66 @@ public class ListFolderActivity extends AppCompatActivity {
                 addFolder();
             }
         });
+
+        btnSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                searchFolder();
+            }
+        });
+        edtSearch.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int start, int count, int after) {}
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int start, int before, int after) {
+                searchFolder();
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {}
+        });
+
         menuManager = new MenuManager();
         menuManager.setUpMenuFolder(this);
+    }
+
+    @Override
+    protected void onRestart() {
+        menuManager = new MenuManager();
+        menuManager.setUpMenuFolder(this);
+        super.onRestart();
     }
 
     private void getViews() {
         lvFolder = findViewById(R.id.lvFolder);
         btnMenu = findViewById(R.id.btn_lstFolder_menu);
         btnAdd = findViewById(R.id.btnAddFolder);
+        edtSearch = findViewById(R.id.edt_folder_search);
+        btnSearch = findViewById(R.id.btn_folder_search);
+
     }
 
-    private void receiveIntent(){
+    private void receiveIntent() {
         SharedPreferences prefs = getSharedPreferences("UserPref", MODE_PRIVATE);
         boolean isLoggedIn = prefs.getBoolean("isLoggedIn", false);
         int userID = prefs.getInt("userID", -1);
         if (isLoggedIn && userID != -1) {
             currentUser = dbManager.getUserById(userID);
             if (currentUser != null) {
-                myListFolder=dbManager.getAllFolder(currentUser.getUserID());
-                fdAdapter=new FolderAdapter(ListFolderActivity.this, R.layout.item_folder, myListFolder);
+                myListFolder = dbManager.getAllFolder(currentUser.getUserID());
+                searchedFolders.addAll(myListFolder);
+                fdAdapter = new FolderAdapter(ListFolderActivity.this, R.layout.item_folder, myListFolder);
                 lvFolder.setAdapter(fdAdapter);
-            }else {
+            } else {
                 Toast.makeText(this, "User information not found!", Toast.LENGTH_SHORT).show();
                 logoutAndRedirectToLogin();
             }
-        }else {
+        } else {
             logoutAndRedirectToLogin();
         }
     }
+
     private void logoutAndRedirectToLogin() {
         SharedPreferences prefs = getSharedPreferences("UserPref", MODE_PRIVATE);
         SharedPreferences.Editor editor = prefs.edit();
@@ -114,7 +151,6 @@ public class ListFolderActivity extends AppCompatActivity {
         startActivity(intent);
         finish();
     }
-
 
     public void addFolder() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -147,25 +183,47 @@ public class ListFolderActivity extends AppCompatActivity {
 
                 if (!fName.isEmpty()) {
 //                    if (currentUser != null) {
-                        FolderItem newFolder = new FolderItem(0, fName, currentUser.getUserID());
+                    FolderItem newFolder = new FolderItem(0, fName, currentUser.getUserID());
 
-                        //Them folder vao DB
-                        long result = dbManager.insFolder(newFolder);
-                        if (result != -1) {
-                            myListFolder.clear();
-                            myListFolder.addAll(dbManager.getAllFolder(currentUser.getUserID()));
-                            fdAdapter.notifyDataSetChanged();
-                            dialog.dismiss();
-                            Toast.makeText(ListFolderActivity.this, "Add new folder successfully!", Toast.LENGTH_SHORT).show();
-                        } else {
-                            Toast.makeText(ListFolderActivity.this, "Add new folder failed!", Toast.LENGTH_SHORT).show();
+                    //Them folder vao DB
+                    long result = dbManager.insFolder(newFolder);
+                    if (result != -1) {
+                        myListFolder.clear();
+                        myListFolder.addAll(dbManager.getAllFolder(currentUser.getUserID()));
+                        fdAdapter.notifyDataSetChanged();
+                        dialog.dismiss();
+                        Toast.makeText(ListFolderActivity.this, "Add new folder successfully!", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(ListFolderActivity.this, "Add new folder failed!", Toast.LENGTH_SHORT).show();
 
-                        }
+                    }
 //                    }
                 }
             }
         });
         dialog.show();
+    }
+
+
+    private void searchFolder() {
+        String searchText = edtSearch.getText().toString().trim();
+        if (!searchText.isEmpty()) {
+            searchedFolders.clear();
+
+            for(FolderItem folderItem:myListFolder){
+                if(folderItem.getFolderName().toLowerCase().contains(searchText)){
+                    searchedFolders.add(folderItem);
+                    fdAdapter = new FolderAdapter(ListFolderActivity.this, R.layout.item_folder, searchedFolders);
+                    lvFolder.setAdapter(fdAdapter);
+                }
+            }
+        }else {
+            searchedFolders.clear();
+            searchedFolders.addAll(myListFolder);
+            fdAdapter = new FolderAdapter(ListFolderActivity.this, R.layout.item_folder, searchedFolders);
+            lvFolder.setAdapter(fdAdapter);
+        }
+        fdAdapter.notifyDataSetChanged();
     }
 }
 

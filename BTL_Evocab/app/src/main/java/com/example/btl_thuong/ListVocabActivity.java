@@ -34,7 +34,6 @@ import java.util.List;
 import java.util.Locale;
 
 public class ListVocabActivity extends AppCompatActivity {
-    //Chua xu ly menu, flashcard
     Button btnMix;
     ImageButton btnMenu_lstVocab, btnBack_lstVocab, btnAddVocab;
     TextView tvFolderName_lstVocab, tvNumber_vocab;
@@ -107,8 +106,7 @@ public class ListVocabActivity extends AppCompatActivity {
         btnBack_lstVocab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(ListVocabActivity.this, ListFolderActivity.class);
-                startActivity(i);
+                finish();
             }
         });
 //Add vocab
@@ -118,15 +116,6 @@ public class ListVocabActivity extends AppCompatActivity {
                 addButtonClick();
             }
         });
-//        lvVocab.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//
-//                VocabItem vocab = myListVocab.get(position);
-//                clickItemVocab(vocab);
-//            }
-//        });
-
         setFlashCard();
 
 //Tron the
