@@ -5,16 +5,18 @@
     android:id="@+id/lo_detail_vocab"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginTop="388dp"
+    android:layout_marginTop="378dp"
     android:padding="20dp">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="300dp"
+        android:layout_height="wrap_content"
         android:background="@drawable/rectangle"
         android:orientation="vertical"
         android:padding="20dp"
-        tools:ignore="MissingConstraints">
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="24dp"
+        tools:layout_editor_absoluteY="29dp">
 
         <ImageView
             android:id="@+id/img_detail_close"
@@ -22,68 +24,87 @@
             android:layout_height="20dp"
             android:layout_gravity="right"
             android:backgroundTint="@color/white"
-            tools:ignore="TouchTargetSizeCheck"
-            app:srcCompat="@drawable/close_24" />
+            app:srcCompat="@drawable/close_24"
+            tools:ignore="TouchTargetSizeCheck" />
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="wrap_content"
             android:orientation="horizontal">
 
             <TextView
                 android:id="@+id/tv_detail_terminology"
                 android:layout_width="wrap_content"
-                android:layout_height="50dp"
-                android:gravity="center_vertical"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
                 android:hint="Term"
-                android:textSize="20sp"
-                android:textColor="@color/black"/>
+                android:textColor="@color/black"
+                android:textSize="24sp" />
 
-            <TextView
-                android:id="@+id/tv_detail_type"
+            <Space
                 android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1" />
+
+            <ImageButton
+                android:id="@+id/btn_speak"
+                android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_marginLeft="20dp"
-                android:gravity="center_vertical"
-                android:textColor="@color/black"
-                android:text="Type"
-                android:textSize="20sp" />
+                android:background="#00FFFFFF"
+                android:layout_gravity="center"
+                android:src="@drawable/outline_brand_awareness"
+                tools:ignore="SpeakableTextPresentCheck" />
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
             <TextView
-                android:id="@+id/tv_detail_definition"
-                android:layout_width="250dp"
-                android:layout_height="50dp"
-                android:gravity="center_vertical"
-                android:hint="Definition"
-                android:textSize="20sp"
-                android:textColor="@color/black"/>
-
-            <ImageButton
+                android:id="@+id/tv2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/outline_brand_awareness"
-                android:id="@+id/btn_speak"
-                tools:ignore="SpeakableTextPresentCheck" />
-
+                android:gravity="center_vertical"
+                android:text="("
+                android:textColor="@color/black"
+                android:textSize="24sp" />
+            <TextView
+                android:id="@+id/tv_detail_type"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:hint="n"
+                android:textColor="@color/black"
+                android:textSize="24sp" />
+            <TextView
+                android:id="@+id/tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
+                android:gravity="center_vertical"
+                android:text=")"
+                android:textColor="@color/black"
+                android:textSize="24sp" />
+            <TextView
+                android:id="@+id/tv_detail_definition"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:hint="Definition"
+                android:textColor="@color/black"
+                android:textSize="24sp" />
         </LinearLayout>
 
         <TextView
             android:id="@+id/tv_detail_example"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Example"
-            android:textSize="20sp"
+            android:gravity="center_vertical"
+            android:layout_marginTop="10dp"
             android:textColor="@color/black"
-            android:lines="2"
-            android:maxLines="2"
-            android:inputType="textMultiLine"
-            android:scrollHorizontally="false"
-            android:gravity="top|start"
-            android:padding="8dp" />
+            android:textSize="23sp"
+            android:hint="Example"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -95,14 +116,16 @@
                 android:id="@+id/btn_detail_edit"
                 android:layout_width="130dp"
                 android:layout_height="match_parent"
+                android:layout_marginLeft="5dp"
                 android:background="@drawable/rounded_border"
                 android:text="Edit"
-                android:layout_marginLeft="5dp"
                 android:textColor="@color/white" />
+
             <Space
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"/>
+                android:layout_weight="1" />
+
             <Button
                 android:id="@+id/btn_detail_delete"
                 android:layout_width="130dp"

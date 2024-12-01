@@ -2,10 +2,13 @@ package com.example.btl_thuong;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
@@ -84,21 +87,6 @@ public class ListFolderActivity extends AppCompatActivity {
     }
 
     private void receiveIntent(){
-//        Intent i = getIntent();
-//        if(i!=null && i.hasExtra("User")){
-//            currentUser=(User) i.getSerializableExtra("User");
-//            if (currentUser != null) {
-//                myListFolder = dbManager.getAllFolder(currentUser.getUserID());
-//                fdAdapter = new FolderAdapter(ListFolderActivity.this, R.layout.item_folder, myListFolder);
-//                lvFolder.setAdapter(fdAdapter);
-//            }else {
-//                Toast.makeText(this, "No information found for this user!", Toast.LENGTH_SHORT).show();
-//                finish();
-//            }
-//        }else {
-//            Toast.makeText(this, "No data found for this user!", Toast.LENGTH_SHORT).show();
-//            finish();
-//        }
         SharedPreferences prefs = getSharedPreferences("UserPref", MODE_PRIVATE);
         boolean isLoggedIn = prefs.getBoolean("isLoggedIn", false);
         int userID = prefs.getInt("userID", -1);
@@ -138,6 +126,12 @@ public class ListFolderActivity extends AppCompatActivity {
         Button btnCancel = dialogView.findViewById(R.id.btnCancelFD);
 
         AlertDialog dialog = builder.create();
+
+        dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialog.getWindow().setDimAmount(0f);
+        dialog.setCancelable(true);
+        dialog.setCanceledOnTouchOutside(false);
 
         btnCancel.setOnClickListener(new View.OnClickListener() {
             @Override
