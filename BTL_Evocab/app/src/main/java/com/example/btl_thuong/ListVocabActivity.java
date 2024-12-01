@@ -79,6 +79,22 @@ public class ListVocabActivity extends AppCompatActivity {
             return;
         }
         getView();
+
+        textToSpeech = new TextToSpeech(this, new TextToSpeech.OnInitListener() {
+            @Override
+            public void onInit(int i) {
+                if (i == TextToSpeech.SUCCESS) {
+                    //Set default language
+                    int result = textToSpeech.setLanguage(Locale.ENGLISH);
+                    if (result == textToSpeech.LANG_MISSING_DATA || result == textToSpeech.LANG_NOT_SUPPORTED) {
+                        Log.e("TTS", "Language not supported!");
+                    }
+                } else {
+                    Log.e("TTS", "Initialization failed!");
+                }
+            }
+        });
+
 //menu
         menuManager=new MenuManager();
         menuManager.setUpMenuVocab(this);
@@ -102,14 +118,14 @@ public class ListVocabActivity extends AppCompatActivity {
                 addButtonClick();
             }
         });
-        lvVocab.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-                VocabItem vocab = myListVocab.get(position);
-                clickItemVocab(vocab);
-            }
-        });
+//        lvVocab.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//
+//                VocabItem vocab = myListVocab.get(position);
+//                clickItemVocab(vocab);
+//            }
+//        });
 
         setFlashCard();
 
@@ -157,7 +173,7 @@ public class ListVocabActivity extends AppCompatActivity {
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
                 ListVocabActivity.this,
                 R.array.vocab_type,
-                android.R.layout.simple_spinner_item
+                R.layout.item_spinner
         );
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         sp_Type.setAdapter(adapter);
@@ -172,23 +188,7 @@ public class ListVocabActivity extends AppCompatActivity {
         btn_detail_delete = findViewById(R.id.btn_detail_delete);
         img_detail_close = findViewById(R.id.img_detail_close);
         btn_speak = findViewById(R.id.btn_speak);
-        textToSpeech = new TextToSpeech(this, new TextToSpeech.OnInitListener() {
-            @Override
-            public void onInit(int i) {
-                if (i == TextToSpeech.SUCCESS) {
-                    // Đặt ngôn ngữ mặc định (ví dụ: Tiếng Anh)
-                    int result = textToSpeech.setLanguage(Locale.ENGLISH);
 
-                    if (result == TextToSpeech.LANG_MISSING_DATA || result == TextToSpeech.LANG_NOT_SUPPORTED) {
-                        Log.e("TTS", "Ngôn ngữ không hỗ trợ");
-                    } else {
-                        btn_speak.setEnabled(true);
-                    }
-                } else {
-                    Log.e("TTS", "Khởi tạo thất bại");
-                }
-            }
-        });
     }
 
     public void getView_edit(View dialogView) {
@@ -201,7 +201,7 @@ public class ListVocabActivity extends AppCompatActivity {
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
                 ListVocabActivity.this,
                 R.array.vocab_type,
-                android.R.layout.simple_spinner_item
+                R.layout.item_spinner
         );
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         sp_Type.setAdapter(adapter);
@@ -239,6 +239,7 @@ public class ListVocabActivity extends AppCompatActivity {
         }
     }
 
+    //call this function at VocabAdapter
     public void clickItemVocab(VocabItem vocab) {
         runOnUiThread(() -> {
             lvVocab.setVisibility(View.GONE);
@@ -392,11 +393,14 @@ public class ListVocabActivity extends AppCompatActivity {
         AlertDialog.Builder builder = new AlertDialog.Builder(ListVocabActivity.this);
         builder.setView(dialogView);
         final AlertDialog dialog = builder.create();
+
         dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
         // Đặt nền của dialog có độ trong suốt bao phủ toàn bộ màn hình
         dialog.getWindow().setDimAmount(0f); // Làm mờ toàn bộ nền nếu cần
+        dialog.setCancelable(true);
         dialog.setCanceledOnTouchOutside(false);
+
         getView_edit(dialogView);
         edtEditTerm.setText(Vocab.getTerminology());
         edtEditDef.setText(Vocab.getDefinition());
