@@ -34,21 +34,57 @@
             android:scaleType="centerCrop"
             android:src="@drawable/e_vocab_logo" />
     </LinearLayout>
-    <!-- ListView for Folders -->
+
+    <LinearLayout
+
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="2dp"
+        android:layout_marginEnd="2dp"
+        android:background="@drawable/search_background"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toTopOf="@+id/lvFolder"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/header_layout">
+
+        <EditText
+            android:id="@+id/edt_folder_search"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_weight="1"
+            android:background="@null"
+            android:drawablePadding="8dp"
+            android:hint="Search folders..."
+            android:inputType="text"
+            android:padding="10dp"
+            android:textColor="@android:color/black"
+            android:textColorHint="@android:color/darker_gray"
+            android:textSize="20sp" />
+
+        <ImageButton
+            android:id="@+id/btn_folder_search"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center_vertical"
+            android:background="@null"
+            android:src="@drawable/baseline_search_24" />
+    </LinearLayout>
+
     <ListView
         android:id="@+id/lvFolder"
         android:layout_width="match_parent"
-        android:layout_height="591dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"
+        android:layout_height="547dp"
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
+        android:layout_marginBottom="10dp"
+        android:divider="@color/LightGray"
+        android:dividerHeight="5dp"
         app:layout_constraintBottom_toTopOf="@id/btnAddFolder"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/header_layout"
-        android:dividerHeight="5dp"
-        android:divider="@color/LightGray"/>
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
 
     <!-- Add Folder Button -->
 
