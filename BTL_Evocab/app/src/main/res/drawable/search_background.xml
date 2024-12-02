@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Màu nền -->
+    <solid android:color="@android:color/white"/>
+
+    <!-- Bo góc -->
+    <corners android:radius="16dp"/>
+
+    <!-- Padding -->
+    <padding android:left="10dp" android:right="10dp"/>
+
+    <!-- Đổ bóng -->
+    <elevation android:elevation="4dp"/>
+
+    <!-- Thêm viền (border) -->
+    <stroke
+        android:color="@android:color/black"
+        android:width="1dp" />
+</shape>
