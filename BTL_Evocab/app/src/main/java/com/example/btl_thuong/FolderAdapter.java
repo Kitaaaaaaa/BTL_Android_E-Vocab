@@ -2,6 +2,7 @@ package com.example.btl_thuong;
 
 import android.app.AlertDialog;
 import android.content.Context;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -77,7 +78,10 @@ public class FolderAdapter extends ArrayAdapter<FolderItem> {
                     } else if (item.getItemId() == R.id.delete_folder) {
                         delFolder(position);
                         return true;
-                    }else {
+                    } else if (item.getItemId() == R.id.share_folder) {
+                        shareFolder(position);
+                        return true;
+                    } else {
                         return false;
                     }
                 });
@@ -127,6 +131,64 @@ public class FolderAdapter extends ArrayAdapter<FolderItem> {
                     dbManager.close();
                 })).setNegativeButton("No", null).show();
     }
+    private void shareFolder(int pos) {
+        FolderItem f = myListFolder.get(pos);
+        EditText edtuserName = new EditText(context);
+        new AlertDialog.Builder(context)
+                .setTitle("Shared username")
+                .setView(edtuserName)
+                .setPositiveButton("Share", (dialog, which) -> {
+                    dbManager.open();
+                    String userName = edtuserName.getText().toString().trim();
+                    if (!userName.isEmpty()) {
+                        if (dbManager.isUserNameExists(userName)) {
+                            User user = dbManager.getUser(userName);
+
+                            ArrayList<VocabItem> listVocab = dbManager.getAllVocab(f.getId());
+
+                            FolderItem f1 = new FolderItem(f.getFolderName(), user.getUserID());
+                            long newIdFolder = dbManager.insFolder(f1);
+
+                            if (newIdFolder != -1) {
+                                int successCount = 0;
+                                
+                                for (VocabItem vocab : listVocab) {
+                                    VocabItem newVocab = new VocabItem(
+                                            vocab.getTerminology(),
+                                            vocab.getType(),
+                                            vocab.getDefinition(),
+                                            vocab.getExample(),
+                                            (int) newIdFolder
+                                    );
+                                    long result = dbManager.insertVocab(newVocab);
+                                    if (result > 0) {
+                                        successCount++;
+                                    }
+                                }
+
+                                // Kiểm tra kết quả
+                                if (successCount != listVocab.size()) {
+                                    Toast.makeText(context, "Sharing process failed! Some vocab were not copied.", Toast.LENGTH_SHORT).show();
+                                } else {
+                                    Toast.makeText(context, "Share success!", Toast.LENGTH_SHORT).show();
+                                    notifyDataSetChanged();
+                                }
+                            } else {
+                                Toast.makeText(context, "Failed to create shared folder!", Toast.LENGTH_SHORT).show();
+                            }
+                        } else {
+                            Toast.makeText(context, "Username not found!", Toast.LENGTH_SHORT).show();
+                        }
+                    } else {
+                        Toast.makeText(context, "Username cannot be left blank!", Toast.LENGTH_SHORT).show();
+                    }
+                    dbManager.close();
+                })
+                .setNegativeButton("Cancel", null)
+                .show();
+    }
+
+
 }
 
 

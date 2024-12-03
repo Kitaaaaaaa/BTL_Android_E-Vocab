@@ -48,4 +48,9 @@ public class FolderItem implements Serializable {
         this.folderName = folderName;
         this.userID = userID;
     }
+
+    public FolderItem(String folderName, int userID) {
+        this.folderName = folderName;
+        this.userID = userID;
+    }
 }
